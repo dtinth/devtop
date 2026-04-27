@@ -1,4 +1,4 @@
-# devbox
+# devtop
 
 A Docker Compose setup for a personal remote development box, accessible securely over Tailscale.
 
