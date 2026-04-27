@@ -22,7 +22,7 @@ By running `docker compose up -d` this Docker Compose stack will:
 The stack is set up in a way that allows me to:
 
 - easily [install mise-en-place](#install-mise-en-place) and then [install OpenCode](#install-opencode) with it, so I can run coding agent sessions on the cloud
-- configure memory limits via environment variables, so I can size the box according to the project’s needs
+- [configure memory limits](#configure-memory-limits) via environment variables, so I can size the box according to the project’s needs
 
 ## Setup
 
@@ -112,3 +112,22 @@ docker compose exec tailscale tailscale serve --bg --https=4096 http://localhost
 ```
 
 You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
+
+### Configure memory limits
+
+By default the webtop container is allowed up to **2 GB of RAM**. If that is not enough, Docker will swap — the combined RAM + swap usage can reach **4 GB** before the container is killed.
+
+To change these limits, set the corresponding variables in your `.env` before (re)starting the stack:
+
+```bash
+WEBTOP_MEM_LIMIT=4g        # RAM limit
+WEBTOP_MEMSWAP_LIMIT=8g    # RAM + swap limit (must be ≥ WEBTOP_MEM_LIMIT)
+```
+
+Then apply with:
+
+```bash
+docker compose up -d
+```
+
+To disable swap entirely, set both variables to the same value.
