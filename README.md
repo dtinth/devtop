@@ -1,15 +1,26 @@
 # devtop
 
-A Docker Compose setup for a personal remote development box, accessible securely over Tailscale.
+My setup for a personal remote development box, accessible securely over Tailscale.
 
-By running `docker compose up -d` this project provides you with:
+By running `docker compose up -d` this Docker Compose stack will:
 
-- An [XFCE](https://xfce.org/) desktop environment based on [linuxserver/webtop](https://docs.linuxserver.io/images/docker-webtop/), letting you run GUI Linux apps remotely.
-- Web-based remote desktop access via [Selkies](https://github.com/selkies-project/selkies), exposed over [Tailscale](https://tailscale.com/) at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net` with a real HTTPS certificate.
-- Docker-in-Docker, isolated from the host's Docker daemon — install, build, and run containers inside the devbox without giving it access to your host.
-- Configurable memory limits via environment variables, so you can size the box for your machine.
-- [Playwright](https://playwright.dev/) support out of the box (privileged container + sufficient `/dev/shm` for headed Chromium).
-- A persistent home directory at `/config` and persistent Docker state at `/var/lib/docker`, both surviving container recreation.
+- connect itself to my [Tailscale](https://tailscale.com/) network, allowing me to securely access it as if it were another machine on my local network, without having to do port forwarding.
+- launch an [XFCE](https://xfce.org/) desktop environment based on [linuxserver/webtop](https://docs.linuxserver.io/images/docker-webtop/), allowing me to run GUI apps.
+- launch [Selkies](https://github.com/selkies-project/selkies), a web-based remote desktop server that supports:
+  - low-latency connection utilizing WebRTC
+  - frame rate of up to 60fps
+  - HiDPI (works with retina display)
+  - clipboard sync
+  - audio forwarding
+- set up [Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve) so I can access the remote desktop by going to `https://<DEVBOX_NAME>.<your-tailnet>.ts.net`
+  - Tailscale automatically sets up HTTPS certificate
+  - the remote desktop is only accessible from within the tailnet
+- launches a Docker daemon isolated from the host (Docker-in-Docker), letting me install, build, and run Docker containers inside the devbox without giving it access to the host machine
+
+The stack is set up in a way that allows me to:
+
+- easily install mise-en-place and then install OpenCode with it, so I can run coding agent sessions on the cloud
+- configure memory limits via environment variables, so I can size the box according to the project’s needs
 
 ## Setup
 
