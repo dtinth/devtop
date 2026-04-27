@@ -57,7 +57,7 @@ services:
       - docker-data:/var/lib/docker
     shm_size: "1gb"
     mem_limit: ${WEBTOP_MEM_LIMIT:-2g}
-    memswap_limit: ${WEBTOP_MEMSWAP_LIMIT:-8g}
+    memswap_limit: ${WEBTOP_MEMSWAP_LIMIT:-4g}
     tmpfs:
       - /tmp:exec,size=2048M
     privileged: true
