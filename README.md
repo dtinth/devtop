@@ -19,7 +19,7 @@ By running `docker compose up -d` this Docker Compose stack will:
 
 The stack is set up in a way that allows me to:
 
-- easily install mise-en-place and then install OpenCode with it, so I can run coding agent sessions on the cloud
+- easily [install mise-en-place](#install-mise-en-place) and then [install OpenCode](#install-opencode) with it, so I can run coding agent sessions on the cloud
 - configure memory limits via environment variables, so I can size the box according to the project’s needs
 
 ## Setup
@@ -77,3 +77,36 @@ After a minute or so, open `https://<DEVBOX_NAME>.<your-tailnet>.ts.net` from an
 | `WEBTOP_MEM_LIMIT` | no | `2g` | RAM cap for webtop |
 | `WEBTOP_MEMSWAP_LIMIT` | no | `4g` | RAM+swap cap (must be ≥ `WEBTOP_MEM_LIMIT`) |
 | `TS_MEM_LIMIT` | no | `512m` | RAM cap for the Tailscale sidecar |
+
+## Guides
+
+### Install mise-en-place
+
+Launch a terminal (Applications → Terminal Emulator) and run:
+
+```bash
+curl https://mise.run | sh
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+```
+
+### Install OpenCode
+
+Install with mise:
+
+```bash
+mise use -g opencode@1
+```
+
+Launch the server (keep this terminal open):
+
+```bash
+opencode serve
+```
+
+OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to Tailscale users, run this from the host:
+
+```bash
+docker compose exec tailscale tailscale serve --bg --https=4096 http://localhost:4096
+```
+
+You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
