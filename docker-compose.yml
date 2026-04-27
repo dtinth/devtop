@@ -36,7 +36,6 @@ services:
     depends_on:
       tailscale:
         condition: service_healthy
-        restart: true
     command: tailscale serve --bg --https=443 http://localhost:3000
     restart: "no"
 
@@ -54,16 +53,17 @@ services:
       - TITLE=${DEVBOX_NAME}
     volumes:
       - config:/config
+      - docker-data:/var/lib/docker
     shm_size: "1gb"
     mem_limit: ${WEBTOP_MEM_LIMIT:-2g}
     memswap_limit: ${WEBTOP_MEMSWAP_LIMIT:-8g}
     tmpfs:
       - /tmp:exec,size=2048M
-    security_opt:
-      - seccomp=unconfined
+    privileged: true
     restart: unless-stopped
 
 volumes:
   config:
   tailscale-state:
   tailscale-socket:
+  docker-data:
