@@ -23,6 +23,7 @@ The stack is set up in a way that allows me to:
 
 - easily [install mise-en-place](#install-mise-en-place) and then [install OpenCode](#install-opencode) with it, so I can run coding agent sessions on the cloud
 - [configure memory limits](#configure-memory-limits) via environment variables, so I can size the box according to the project’s needs
+- run web browsers (headed or headless), so I can ask the coding agent to use [agent-browser](https://agent-browser.dev/) for exploratory testing and [Playwright](https://playwright.dev/) for E2E testing
 
 ## Setup
 
