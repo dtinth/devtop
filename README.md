@@ -103,6 +103,8 @@ docker run --rm -v "$HOME/.local/bin:/out" tailscale/tailscale:latest cp /usr/lo
 
 The binary persists across restarts via the `config` volume. You can then use `tailscale serve`, `tailscale funnel`, `tailscale status`, etc. directly from the webtop terminal.
 
+Read-only commands (e.g. `tailscale status`) work as-is. Commands that change configuration (e.g. `tailscale serve`) require root — use `sudo $(which tailscale)` rather than `sudo tailscale`, since `sudo` doesn't inherit the user `PATH` where the binary is installed. Moving the binary to `/usr/local/bin` would fix this, but that location isn't persistent across container recreations.
+
 ### Install OpenCode
 
 Install with mise:
