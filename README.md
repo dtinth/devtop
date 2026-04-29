@@ -120,10 +120,44 @@ opencode serve
 OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to Tailscale users, run this from the webtop terminal (requires the [Tailscale CLI](#install-tailscale-cli)):
 
 ```bash
-tailscale serve --bg --https=4096 http://localhost:4096
+sudo $(which tailscale) serve --bg --https=4096 http://localhost:4096
 ```
 
 You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
+
+### Run Zellij Web
+
+Install with mise:
+
+```bash
+mise use -g zellij
+```
+
+Create an auth token (displayed once — note it down):
+
+```bash
+zellij web --create-token
+```
+
+Launch Zellij once (you can exit or detach immediately — this is required before `zellij web` will stay running):
+
+```bash
+zellij
+```
+
+Then launch the [web server](https://zellij.dev/documentation/web-client.html) (keep this terminal open):
+
+```bash
+zellij web --port=18082
+```
+
+Zellij Web listens on `localhost:18082` inside the devbox. To make it accessible to Tailscale users, run this from the webtop terminal (requires the [Tailscale CLI](#install-tailscale-cli)):
+
+```bash
+sudo $(which tailscale) serve --bg --https=18082 http://localhost:18082
+```
+
+You can now access your Zellij Web instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:18082`.
 
 ### Configure memory limits
 
