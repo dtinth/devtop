@@ -1,6 +1,6 @@
 # devtop
 
-My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system.
+My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system. Powered by [webtop](https://docs.linuxserver.io/images/docker-webtop/).
 
 <img width="2128" height="1098" alt="image" src="https://github.com/user-attachments/assets/a2a915de-4e79-4fb2-8e79-45fe12ab6f97" />
 
@@ -103,6 +103,8 @@ docker run --rm -v "$HOME/.local/bin:/out" tailscale/tailscale:latest cp /usr/lo
 
 The binary persists across restarts via the `config` volume. You can then use `tailscale serve`, `tailscale funnel`, `tailscale status`, etc. directly from the webtop terminal.
 
+Read-only commands (e.g. `tailscale status`) work as-is. Commands that change configuration (e.g. `tailscale serve`) require root — use `sudo $(which tailscale)` rather than `sudo tailscale`, since `sudo` doesn't inherit the user `PATH` where the binary is installed. Moving the binary to `/usr/local/bin` would fix this, but that location isn't persistent across container recreations.
+
 ### Install OpenCode
 
 Install with mise:
@@ -111,7 +113,7 @@ Install with mise:
 mise use -g opencode@1
 ```
 
-Launch the server (keep this terminal open):
+Launch the [web server](https://opencode.ai/docs/web/) (keep this terminal open):
 
 ```bash
 opencode serve
@@ -120,10 +122,50 @@ opencode serve
 OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to Tailscale users, run this from the webtop terminal (requires the [Tailscale CLI](#install-tailscale-cli)):
 
 ```bash
-tailscale serve --bg --https=4096 http://localhost:4096
+sudo $(which tailscale) serve --bg --https=4096 http://localhost:4096
 ```
 
 You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
+
+### Run Zellij Web
+
+Install with mise:
+
+```bash
+mise use -g zellij
+```
+
+Create an auth token (displayed once — note it down):
+
+```bash
+zellij web --create-token
+```
+
+Launch Zellij once (you can exit or detach immediately — this is required before `zellij web` will stay running):
+
+```bash
+zellij
+```
+
+Then launch the [web server](https://zellij.dev/documentation/web-client.html) (keep this terminal open):
+
+```bash
+zellij web --port=18082
+```
+
+Zellij Web listens on `localhost:18082` inside the devbox. To make it accessible to Tailscale users, run this from the webtop terminal (requires the [Tailscale CLI](#install-tailscale-cli)):
+
+```bash
+sudo $(which tailscale) serve --bg --https=18082 http://localhost:18082
+```
+
+You can now access your Zellij Web instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:18082`.
+
+You can also [attach to a session from a local terminal](https://zellij.dev/documentation/web-client.html#remote-terminal-attach):
+
+```bash
+zellij attach https://<DEVBOX_NAME>.<your-tailnet>.ts.net:18082/<session-name> --token <token>
+```
 
 ### Configure memory limits
 
