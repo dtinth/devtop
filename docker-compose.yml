@@ -55,6 +55,7 @@ services:
     volumes:
       - config:/config
       - docker-data:/var/lib/docker
+      - tailscale-socket:/var/run/tailscale
     shm_size: "1gb"
     mem_limit: ${WEBTOP_MEM_LIMIT:-2g}
     memswap_limit: ${WEBTOP_MEMSWAP_LIMIT:-4g}
