@@ -26,12 +26,6 @@ The stack is set up in a way that allows me to:
 - [configure memory limits](#configure-memory-limits) via environment variables, so I can size the box according to the project’s needs
 - run web browsers (headed or headless), so I can ask the coding agent to use [agent-browser](https://agent-browser.dev/) for exploratory testing and [Playwright](https://playwright.dev/) for E2E testing
 
-## Image setup FAQ
-
-* **Why the `debian` variant instead of the default `alpine` image?** Alpine's musl libc breaks tools that ship glibc-linked binaries. In practice, Mise-installed runtimes and Playwright both fail on Alpine; Debian avoids those issues entirely.
-
-* **Why `privileged: true`?** Required for Docker-in-Docker — the webtop container runs its own Docker daemon, which needs elevated capabilities to manage kernel namespaces and cgroups.
-
 ## Setup
 
 ### 1. Tailnet prerequisites
@@ -139,3 +133,9 @@ docker compose up -d
 ```
 
 To disable swap entirely, set both variables to the same value.
+
+## Image setup FAQ
+
+* **Why the `debian` variant instead of the default `alpine` image?** Alpine's musl libc breaks tools that ship glibc-linked binaries. In practice, Mise-installed runtimes and Playwright both fail on Alpine; Debian avoids those issues entirely.
+
+* **Why `privileged: true`?** Required for Docker-in-Docker — the webtop container runs its own Docker daemon, which needs elevated capabilities to manage kernel namespaces and cgroups.
