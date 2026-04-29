@@ -133,3 +133,9 @@ docker compose up -d
 ```
 
 To disable swap entirely, set both variables to the same value.
+
+## Image setup FAQ
+
+* **Why the `debian` variant instead of the default `alpine` image?** Alpine's musl libc breaks tools that ship glibc-linked binaries. In practice, Mise-installed runtimes and Playwright both fail on Alpine; Debian avoids those issues entirely.
+
+* **Why `privileged: true`?** Required for Docker-in-Docker — the webtop container runs its own Docker daemon, which needs elevated capabilities to manage kernel namespaces and cgroups.
