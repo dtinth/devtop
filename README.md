@@ -93,6 +93,16 @@ curl https://mise.run | sh
 echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
 ```
 
+### Install Tailscale CLI
+
+Run once from the webtop terminal to put the `tailscale` binary in `~/.local/bin`:
+
+```bash
+docker run --rm -v "$HOME/.local/bin:/out" tailscale/tailscale:latest cp /usr/local/bin/tailscale /out/tailscale
+```
+
+The binary persists across restarts via the `config` volume. You can then use `tailscale serve`, `tailscale funnel`, `tailscale status`, etc. directly from the webtop terminal.
+
 ### Install OpenCode
 
 Install with mise:
@@ -107,10 +117,10 @@ Launch the server (keep this terminal open):
 opencode serve
 ```
 
-OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to Tailscale users, run this from the host:
+OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to Tailscale users, run this from the webtop terminal (requires the [Tailscale CLI](#install-tailscale-cli)):
 
 ```bash
-docker compose exec tailscale tailscale serve --bg --https=4096 http://localhost:4096
+tailscale serve --bg --https=4096 http://localhost:4096
 ```
 
 You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
