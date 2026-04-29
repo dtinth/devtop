@@ -159,6 +159,12 @@ sudo $(which tailscale) serve --bg --https=18082 http://localhost:18082
 
 You can now access your Zellij Web instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:18082`.
 
+You can also [attach to a session from a local terminal](https://zellij.dev/documentation/web-client.html#remote-terminal-attach):
+
+```bash
+zellij attach https://<DEVBOX_NAME>.<your-tailnet>.ts.net:18082/<session-name> --token <token>
+```
+
 ### Configure memory limits
 
 By default the webtop container is allowed up to **2 GB of RAM**. If that is not enough, Docker will swap — the combined RAM + swap usage can reach **4 GB** before the container is killed.
