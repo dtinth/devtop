@@ -111,7 +111,7 @@ Install with mise:
 mise use -g opencode@1
 ```
 
-Launch the server (keep this terminal open):
+Launch the [web server](https://opencode.ai/docs/web/) (keep this terminal open):
 
 ```bash
 opencode serve
