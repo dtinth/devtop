@@ -6,7 +6,7 @@ My setup for a personal remote development box, accessible securely over Tailsca
 
 By running `docker compose up -d` this Docker Compose stack will:
 
-- connect itself to my [Tailscale](https://tailscale.com/) network, allowing me to securely access it as if it were another machine on my local network, without having to do port forwarding.
+- connect itself to my [Tailscale](https://tailscale.com/) network, allowing me to securely access it as if it were another machine on my local network, so I can develop multiple projects on the same VPS without different projects competing for the same port
 - launch an [XFCE](https://xfce.org/) desktop environment based on [linuxserver/webtop](https://docs.linuxserver.io/images/docker-webtop/), allowing me to run GUI apps.
 - launch [Selkies](https://github.com/selkies-project/selkies), a web-based remote desktop server that supports:
   - low-latency connection utilizing WebRTC
