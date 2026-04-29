@@ -14,6 +14,7 @@ By running `docker compose up -d` this Docker Compose stack will:
   - HiDPI (works with retina display)
   - clipboard sync
   - audio forwarding
+  - file transfers
 - set up [Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve) so I can access the remote desktop by going to `https://<DEVBOX_NAME>.<your-tailnet>.ts.net`
   - Tailscale automatically sets up HTTPS certificate
   - the remote desktop is only accessible from within the tailnet
