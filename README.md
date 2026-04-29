@@ -1,6 +1,6 @@
 # devtop
 
-My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system.
+My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system. Powered by [webtop](https://docs.linuxserver.io/images/docker-webtop/).
 
 <img width="2128" height="1098" alt="image" src="https://github.com/user-attachments/assets/a2a915de-4e79-4fb2-8e79-45fe12ab6f97" />
 
