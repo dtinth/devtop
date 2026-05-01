@@ -133,6 +133,12 @@ sudo $(which tailscale) serve --bg --https=4096 http://localhost:4096
 
 You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
 
+To attach to the running instance from your local terminal, run:
+
+```bash
+opencode attach https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096 --dir /path/to/your/project
+```
+
 ### Run Zellij Web
 
 Install with mise:
