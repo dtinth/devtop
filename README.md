@@ -93,6 +93,12 @@ curl https://mise.run | sh
 echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
 ```
 
+Reload the shell with `exec bash` then I can install tools I often use:
+
+```bash
+mise use -g gh ghq btop zellij opencode@1 node@24
+```
+
 ### Install Tailscale CLI
 
 Run once from the webtop terminal to put the `tailscale` binary in `~/.local/bin`:
