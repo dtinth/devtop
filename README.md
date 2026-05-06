@@ -133,7 +133,9 @@ OpenCode listens on `localhost:4096` inside the devbox. To make it accessible to
 sudo $(which tailscale) serve --bg --https=4096 http://localhost:4096
 ```
 
-You can now access your OpenCode instance at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
+You can now access your OpenCode instance directly at `https://<DEVBOX_NAME>.<your-tailnet>.ts.net:4096`.
+
+For a better experience on iPad, I recommend going to <https://app.opencode.ai/>, add it to your homescreen, then you can use the web client to connect to the OpenCode server (click on `localhost:4096` &rarr; Add server). It also lets you switch between multiple servers so you can work on multiple development environments.
 
 To attach to the running instance from your local terminal, run:
 
