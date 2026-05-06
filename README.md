@@ -1,8 +1,10 @@
 # devtop
 
-My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system. Powered by [webtop](https://docs.linuxserver.io/images/docker-webtop/).
+My setup for a personal remote development box, accessible securely over Tailscale, for running coding agents on VPS without giving it access to the whole system.
 
-<img width="2128" height="1098" alt="image" src="https://github.com/user-attachments/assets/a2a915de-4e79-4fb2-8e79-45fe12ab6f97" />
+This setup gives me a nice remote development environment on my iPad: On the left is [OpenCode](https://opencode.ai/), and on the right is [webtop](https://docs.linuxserver.io/images/docker-webtop/)'s remote desktop, where I can use the browser (or [let my agents use it](https://agent-browser.dev/)). It supports retina displays and can stream up to 60 fps.
+
+![](https://im.dt.in.th/ipfs/bafybeibyzpw2bdcnwiju6h7xvowsytcfboi3bmqli5iog3h66nug4p43vq/image.webp)
 
 By running `docker compose up -d` this Docker Compose stack will:
 
