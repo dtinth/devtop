@@ -32,3 +32,5 @@ jobs:
           push: ${{ github.event_name == 'push' }}
           tags: ghcr.io/dtinth/devtop-sshd:latest
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
