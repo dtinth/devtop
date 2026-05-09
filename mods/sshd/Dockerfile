@@ -1,5 +1,5 @@
 FROM alpine AS build
-ARG DROPBEAR_VERSION=2024.86
+ARG DROPBEAR_VERSION=2026.90
 RUN apk add --no-cache build-base zlib-dev zlib-static linux-headers
 WORKDIR /build
 RUN wget -q https://matt.ucc.asn.au/dropbear/releases/dropbear-${DROPBEAR_VERSION}.tar.bz2 \
