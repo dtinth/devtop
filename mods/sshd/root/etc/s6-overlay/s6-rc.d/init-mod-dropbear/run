@@ -13,13 +13,3 @@ chmod 700 /config/.ssh
 touch /config/.ssh/authorized_keys
 chmod 600 /config/.ssh/authorized_keys
 chown -R abc:abc /config/.ssh
-
-# Expose key container env vars to SSH login sessions.
-# Dropbear starts a clean shell that doesn't inherit the container environment,
-# so vars like TZ and XDG_RUNTIME_DIR would otherwise be missing, breaking
-# timezone display and tools like zellij that locate sockets via XDG_RUNTIME_DIR.
-mkdir -p /etc/profile.d
-cat > /etc/profile.d/devtop-env.sh <<EOF
-export TZ=${TZ:-UTC}
-export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/config/.XDG}
-EOF
