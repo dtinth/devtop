@@ -1,16 +1,14 @@
 #!/usr/bin/with-contenv bash
 
-# Generate persistent host keys in /config/ssh (survives container restarts)
-mkdir -p /config/ssh
-if [ ! -f /config/ssh/dropbear_ecdsa_host_key ]; then
-    dropbearkey -t ecdsa -f /config/ssh/dropbear_ecdsa_host_key
+# Generate persistent host keys in ~/.ssh (survives container restarts)
+mkdir -p /config/.ssh
+if [ ! -f /config/.ssh/dropbear_ecdsa_host_key ]; then
+    dropbearkey -t ecdsa -f /config/.ssh/dropbear_ecdsa_host_key
 fi
-if [ ! -f /config/ssh/dropbear_ed25519_host_key ]; then
-    dropbearkey -t ed25519 -f /config/ssh/dropbear_ed25519_host_key
+if [ ! -f /config/.ssh/dropbear_ed25519_host_key ]; then
+    dropbearkey -t ed25519 -f /config/.ssh/dropbear_ed25519_host_key
 fi
 
-# Ensure abc user's .ssh dir exists with correct permissions
-mkdir -p /config/.ssh
 chmod 700 /config/.ssh
 touch /config/.ssh/authorized_keys
 chmod 600 /config/.ssh/authorized_keys

@@ -86,6 +86,27 @@ After a minute or so, open `https://<DEVBOX_NAME>.<your-tailnet>.ts.net` from an
 
 ## Guides
 
+### SSH access
+
+An SSH server (dropbear) is automatically started inside the devbox. To connect:
+
+```bash
+ssh abc@<DEVBOX_NAME>.<your-tailnet>.ts.net
+```
+
+Add your public keys to `~/.ssh/authorized_keys` inside the devbox (the file is created automatically on first boot). Password authentication is disabled.
+
+### Install extra packages
+
+Use the [`universal-package-install`](https://github.com/linuxserver/docker-mods/tree/universal-package-install) mod alongside the SSH mod to install additional Debian packages at container startup. Add to your `.env`:
+
+```bash
+DOCKER_MODS=ghcr.io/dtinth/devtop-sshd:latest|linuxserver/mods:universal-package-install
+INSTALL_PACKAGES=fish
+```
+
+Multiple packages are pipe-separated: `INSTALL_PACKAGES=fish|htop|ripgrep`.
+
 ### Install mise-en-place
 
 Launch a terminal (Applications → Terminal Emulator) and run:
