@@ -96,6 +96,10 @@ ssh abc@<DEVBOX_NAME>.<your-tailnet>.ts.net
 
 Add your public keys to `~/.ssh/authorized_keys` inside the devbox (the file is created automatically on first boot). Password authentication is disabled.
 
+This screenshot shows [Blink Shell](https://blink.sh/) SSHing into the devbox to run [Claude Code](https://code.claude.com/docs/en/overview), controlling a headed [agent-browser](https://agent-browser.dev/) to debug an issue:
+
+![](https://im.dt.in.th/ipfs/bafybeidb7oo6c7ffvqqnjal3uubphonc7ch4th5kazhxoa6qbqoifblm74/image.webp)
+
 ### Install extra packages
 
 Use the [`universal-package-install`](https://github.com/linuxserver/docker-mods/tree/universal-package-install) mod alongside the SSH mod to install additional Debian packages at container startup. Add to your `.env`:
