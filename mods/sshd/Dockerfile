@@ -10,7 +10,10 @@ RUN wget -q https://matt.ucc.asn.au/dropbear/releases/dropbear-${DROPBEAR_VERSIO
     && strip dropbear dropbearkey \
     && cp dropbear dropbearkey /usr/local/bin/
 
+FROM alpine AS assemble
+COPY --from=build /usr/local/bin/dropbear /output/usr/sbin/dropbear
+COPY --from=build /usr/local/bin/dropbearkey /output/usr/bin/dropbearkey
+COPY root/ /output/
+
 FROM scratch
-COPY --from=build /usr/local/bin/dropbear /usr/sbin/dropbear
-COPY --from=build /usr/local/bin/dropbearkey /usr/bin/dropbearkey
-COPY root/ /
+COPY --from=assemble /output/ /
