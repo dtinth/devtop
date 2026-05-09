@@ -227,6 +227,12 @@ docker compose up -d
 
 To disable swap entirely, set both variables to the same value.
 
+## Use KDE
+
+To use KDE, replace `debian-xfce` with `debian-kde` in `docker-compose.yml`.
+
+![](https://im.dt.in.th/ipfs/bafybeiaeusu4wd4rpdrbzbju64hlnlu6myexkdxeinesryogbypmxkwg6y/image.webp)
+
 ## Image setup FAQ
 
 * **Why the `debian` variant instead of the default `alpine` image?** Alpine's musl libc breaks tools that ship glibc-linked binaries. In practice, Mise-installed runtimes and Playwright both fail on Alpine; Debian avoids those issues entirely.
