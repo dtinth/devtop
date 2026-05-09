@@ -53,6 +53,7 @@ services:
       - TZ=${TZ:-UTC}
       - TITLE=${DEVBOX_NAME}
       - SHELL=/bin/bash
+      - DOCKER_MODS=ghcr.io/dtinth/devtop-sshd:latest
     volumes:
       - config:/config
       - docker-data:/var/lib/docker
