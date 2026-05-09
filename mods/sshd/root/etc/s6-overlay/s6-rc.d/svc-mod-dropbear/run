@@ -2,4 +2,5 @@
 exec /usr/sbin/dropbear -F -E -p 22 \
     -r /config/.ssh/dropbear_ecdsa_host_key \
     -r /config/.ssh/dropbear_ed25519_host_key \
-    -s
+    -s \
+    -e
