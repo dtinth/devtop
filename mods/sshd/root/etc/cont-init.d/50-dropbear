@@ -1,11 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-# Install dropbear if not present
-if ! command -v dropbear &>/dev/null; then
-    apt-get update -qq
-    DEBIAN_FRONTEND=noninteractive apt-get install -y -qq dropbear-bin
-fi
-
 # Generate persistent host keys in /config/ssh (survives container restarts)
 mkdir -p /config/ssh
 if [ ! -f /config/ssh/dropbear_ecdsa_host_key ]; then
