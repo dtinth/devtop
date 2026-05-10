@@ -41,7 +41,7 @@ services:
     restart: "no"
 
   webtop:
-    image: lscr.io/linuxserver/webtop:debian-xfce
+    image: ${WEBTOP_IMAGE:-lscr.io/linuxserver/webtop:debian-xfce}
     network_mode: service:tailscale
     depends_on:
       tailscale:
