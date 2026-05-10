@@ -133,7 +133,7 @@ echo 'eval "$(~/.local/bin/mise activate bash --shims)"' >> ~/.bashrc
 Reload the shell with `exec bash` then I can install tools I often use:
 
 ```bash
-mise use -g btop gh ghq node@24 opencode@1 ripgrep zellij
+mise use -g btop edit gh ghq node@24 opencode@1 ripgrep zellij
 ```
 
 ### Install Tailscale CLI
