@@ -56,6 +56,7 @@ TS_AUTHKEY=tskey-auth-xxxxxxxxxxxxx
 
 # Optional
 TZ=Asia/Bangkok
+WEBTOP_IMAGE=lscr.io/linuxserver/webtop:debian-xfce
 WEBTOP_MEM_LIMIT=2g
 WEBTOP_MEMSWAP_LIMIT=4g
 TS_MEM_LIMIT=512m
@@ -80,6 +81,7 @@ After a minute or so, open `https://<DEVBOX_NAME>.<your-tailnet>.ts.net` from an
 | `DEVBOX_NAME` | yes | — | Tailnet hostname and browser title |
 | `TS_AUTHKEY` | yes | — | Only consumed on first boot; thereafter ignored |
 | `TZ` | no | `UTC` | IANA timezone, e.g. `Asia/Bangkok` |
+| `WEBTOP_IMAGE` | no | `lscr.io/linuxserver/webtop:debian-xfce` | Webtop image to use, e.g. `lscr.io/linuxserver/webtop:debian-kde` |
 | `WEBTOP_MEM_LIMIT` | no | `2g` | RAM cap for webtop |
 | `WEBTOP_MEMSWAP_LIMIT` | no | `4g` | RAM+swap cap (must be ≥ `WEBTOP_MEM_LIMIT`) |
 | `TS_MEM_LIMIT` | no | `512m` | RAM cap for the Tailscale sidecar |
@@ -95,6 +97,14 @@ ssh abc@<DEVBOX_NAME>.<your-tailnet>.ts.net
 ```
 
 Add your public keys to `~/.ssh/authorized_keys` inside the devbox (the file is created automatically on first boot). Password authentication is disabled.
+
+SSH sessions inherit the full container environment (including `DISPLAY`), so GUI apps and tools like `zellij attach` work seamlessly from SSH.
+
+Run this once to make login shells (SSH) source `~/.bashrc`, so tools installed there (like mise) work without running `exec bash`:
+
+```bash
+echo '[[ -f ~/.bashrc ]] && source ~/.bashrc' >> ~/.bash_profile
+```
 
 This screenshot shows [Blink Shell](https://blink.sh/) SSHing into the devbox to run [Claude Code](https://code.claude.com/docs/en/overview), controlling a headed [agent-browser](https://agent-browser.dev/) to debug an issue:
 
@@ -117,7 +127,7 @@ Launch a terminal (Applications → Terminal Emulator) and run:
 
 ```bash
 curl https://mise.run | sh
-echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+echo 'eval "$(~/.local/bin/mise activate bash --shims)"' >> ~/.bashrc
 ```
 
 Reload the shell with `exec bash` then I can install tools I often use:
@@ -229,7 +239,11 @@ To disable swap entirely, set both variables to the same value.
 
 ## Use KDE
 
-To use KDE, replace `debian-xfce` with `debian-kde` in `docker-compose.yml`.
+To use KDE, set `WEBTOP_IMAGE` in your `.env`:
+
+```bash
+WEBTOP_IMAGE=lscr.io/linuxserver/webtop:debian-kde
+```
 
 ![](https://im.dt.in.th/ipfs/bafybeiaeusu4wd4rpdrbzbju64hlnlu6myexkdxeinesryogbypmxkwg6y/image.webp)
 
