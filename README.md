@@ -250,6 +250,14 @@ WEBTOP_IMAGE=lscr.io/linuxserver/webtop:debian-kde
 
 ![](https://im.dt.in.th/ipfs/bafybeiaeusu4wd4rpdrbzbju64hlnlu6myexkdxeinesryogbypmxkwg6y/image.webp)
 
+## Hardening
+
+If you don't feel peaceful with `privileged: true` (which would allow malicious actors in a compromised container to access the host filesystem), you can harden the container a bit by replacing it with `security_opt: ["seccomp:unconfined"]` ([required for the desktop environment to function](https://docs.linuxserver.io/images/docker-webtop/#application-setup:~:text=Modern%20GUI%20desktop%20apps%20may%20have%20compatibility%20issues)). However, in this mode:
+
+- Docker-in-Docker will not work. You cannot run Docker containers.
+- To add Tailscale proxies, you have to do it from the host. For example: `docker compose exec tailscale tailscale serve --bg --https=4096 http://localhost:4096`
+- To run Docker services, you can run it _alongside_ the container, not _within_ the container.
+
 ## Image setup FAQ
 
 * **Why the `debian` variant instead of the default `alpine` image?** Alpine's musl libc breaks tools that ship glibc-linked binaries. In practice, Mise-installed runtimes and Playwright both fail on Alpine; Debian avoids those issues entirely.
