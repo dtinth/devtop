@@ -20,13 +20,16 @@ By running `docker compose up -d` this Docker Compose stack will:
 - set up [Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve) so I can access the remote desktop by going to `https://<DEVBOX_NAME>.<your-tailnet>.ts.net`
   - Tailscale automatically sets up HTTPS certificate
   - the remote desktop is only accessible from within the tailnet
-- launches a Docker daemon isolated from the host (Docker-in-Docker), letting me install, build, and run Docker containers inside the devbox without giving it access to the host machine
+- launches a Docker daemon isolated from the host (Docker-in-Docker), letting me install, build, and run Docker containers inside the devbox without it conflicting with the host's Docker daemon
 
 The stack is set up in a way that allows me to:
 
 - easily [install mise-en-place](#install-mise-en-place) and then [install OpenCode](#install-opencode) with it, so I can run coding agent sessions on the cloud
 - [configure memory limits](#configure-memory-limits) via environment variables, so I can size the box according to the project’s needs
 - run web browsers (headed or headless), so I can ask the coding agent to use [agent-browser](https://agent-browser.dev/) for exploratory testing and [Playwright](https://playwright.dev/) for E2E testing
+
+> [!CAUTION]
+> **This is not a secure sandbox.** The webtop container runs with `privileged: true` to enable Docker-in-Docker, but this also provides the container access to the host block device (`/dev/sda`). It also provides `sudo` access without a password, which is provides added convenience for easily adding extra packages. However, anyone who compromises the webtop container can read and modify the host filesystem. Therefore, treat this setup as a convenience boundary, not a security boundary. It keeps your daily-driver machine clean and provides project isolation, but it does not protect the host from malicious code running inside the container. If you need to run untrusted third-party code (or prompts), isolate it inside a dedicated VM or on a separate machine.
 
 ## Setup
 
